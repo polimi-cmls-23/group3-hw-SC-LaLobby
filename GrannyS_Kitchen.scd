@@ -12,6 +12,8 @@ var box1_1,box1_2,box1_3,box2_1,box2_2,box2_3,box3_1,box3_2,box3_3,box4_1,box4_2
 var subTitle1,subTitle2,subTitle3,subTitle4;
 var icon1,icon2,icon3,icon4,logo;
 var scope1,scope2,scope3,scope4;
+var freq1,freq2,freq3,freq4;
+var buttonScope1,buttonScope2,buttonScope3,buttonScope4;
 var fontS,fontL;
 var displacement,boxn;
 var incr;
@@ -179,7 +181,7 @@ SynthDef.new("rat3", {
 		rate: 1.61,
 		pos: 0.17028+((pos*0.05)-0.025),
 		interp: 2,
-		pan: 0,
+		pan: pan,
 		envbufnum: -1,
 		maxGrains: 512);
 
@@ -189,7 +191,7 @@ SynthDef.new("rat3", {
 	rev = FreeVerb.ar(sig, mix, room, damp);
 	panner = Pan2.ar(rev*amp,pan);
 
-	//env =  EnvGen.ar(Env([1, 0], [6], curve: [-5]), 1, 1, 0, 1, 1);
+	env =  EnvGen.ar(Env([1, 0], [6+length], curve: [-5]), 1, 1, 0, 1, 1);
 
 		Out.ar(busNum+(2*2), panner);
 
@@ -272,7 +274,7 @@ SynthDef.new("rat4", {
 
 	//env =  EnvGen.ar(Env([1, 0], [5], curve: [500]), 1, 1, 0, 1, 1);
 
-	Out.ar(busNum+(3*2), FreeVerb.ar(sig, mix, room, damp)*amp*0.5);//*env);
+	Out.ar(busNum+(3*2), FreeVerb.ar(sig, mix, room, damp)*amp*0.25);//*env);
 
 }).add;
 
@@ -288,7 +290,7 @@ backG = Image.new(thisProcess.nowExecutingPath.dirname +/+ "Images/GUIv0.2Plain_
 icon1 = Image.new(thisProcess.nowExecutingPath.dirname +/+ "Images/Stove2");
 icon2 = Image.new(thisProcess.nowExecutingPath.dirname +/+ "Images/Onions2");
 icon3 = Image.new(thisProcess.nowExecutingPath.dirname +/+ "Images/Cheers2");
-icon4 = Image.new(thisProcess.nowExecutingPath.dirname +/+ "Images/Boiling2");
+icon4 = Image.new(thisProcess.nowExecutingPath.dirname +/+ "Images/Kettle");
 logo = Image.new(thisProcess.nowExecutingPath.dirname +/+ "Images/GrannySLogo2");
 
 scale = 1.25;
@@ -429,7 +431,7 @@ knob_3_1_4 = EZKnob(box3_1,box1W/4.5@box1H,"Damp",layout:\vert2,labelHeight:box1
 //knob_3_2_1 = EZKnob(box3_2,box2W/4.5@box2H,"Size",layout:\vert2,labelHeight:box1H/4);
 knob_3_2_2 = EZKnob(box3_2,box2W/3.5@box2H,"Dur",layout:\vert2,labelHeight:box1H/4,initVal:0.5);
 knob_3_2_3 = EZKnob(box3_2,box2W/3.5@box2H,"Pos",layout:\vert2,labelHeight:box1H/4,initVal:0.5);
-knob_3_2_4 = EZKnob(box3_2,box2W/3.5@box2H,"Rate",layout:\vert2,labelHeight:box1H/4,initVal:0.5);
+knob_3_2_4 = EZKnob(box3_2,box2W/3.5@box2H,"Pitch",layout:\vert2,labelHeight:box1H/4,initVal:0.5);
 
 slider3_1 = EZSlider(box3_3,box3W*0.935@(box2H/4),"Volume",ControlSpec(0,100,step:1),labelHeight:box1H/4,numberWidth:box3W/8,initVal:100);
 box3_3.startRow;
@@ -454,7 +456,7 @@ box4_1 = FlowView.new(window,Rect(margin2W+(boxn*displacement),margin1H,box1W-(b
 box4_2 = FlowView.new(window,Rect(margin2W+(boxn*displacement),margin2H,box2W-(box2W/36),box2H));
 box4_3 = FlowView.new(window,Rect(margin3W+(boxn*displacement),margin3H,box3W,box2H));
 
-subTitle4 = StaticText.new(window,Rect(marginW+(boxn*displacement),marginH,box1W,box1H)).string_("Boiling").align_(\center).font_(Font("Monotype Corsiva", fontS));
+subTitle4 = StaticText.new(window,Rect(marginW+(boxn*displacement),marginH,box1W,box1H)).string_("Kettle").align_(\center).font_(Font("Monotype Corsiva", fontS));
 
 button_4_1_1 = Button.new(box4_1,Rect(0,0,box1W/4.5,box1H/2)).states_([["Play",Color.white,Color.black],["Stop",Color.red,Color.black]]).font_(Font("Monotype Corsiva", fontL));
 knob_4_1_2 = EZKnob(box4_1,box1W/4.5@box1H,"Dry/Wet",layout:\vert2,labelHeight:box1H/4,initVal:0.2);
@@ -495,7 +497,7 @@ scope1.server_(s);
 scope1.start;
 scope1.yZoom=6;
 
-scope2 = ScopeView.new(window,Rect(margin2W+(box1W/4.5)+box1W+marginW,marginSH,box1W/2,scopeH));
+	scope2 = ScopeView.new(window,Rect(margin2W+(box1W/4.5)+(box1W+marginW),marginSH,box1W/2,scopeH));
 scope2.background_(Color.black);
 scope2.waveColors_([Color.fromHexString("#d7c286"), Color.fromHexString("#d7c286")]);
 scope2.style_(0);
@@ -525,11 +527,99 @@ scope4.server_(s);
 scope4.start;
 scope4.yZoom=2;
 
+buttonScope1 = Button.new(window,Rect(margin2W+(box1W/9.5),marginSH,box1W/9.5,box1H/4)).states_([["t",Color.black,Color.fromHexString("#d4af37")],["Hz",Color.black,Color.fromHexString("#d4af37")]]).font_(Font("Monotype Corsiva", fontL));
+
+buttonScope1.action_({
+		if(buttonScope1.value == 1){
+			{scope1.stop;
+			freq1 = FreqScopeView.new(window, Rect(margin2W+(box1W/4.5),marginSH,box1W/2,scopeH), s);
+			freq1.freqMode_(1);
+			freq1.inBus_(busNum);
+			freq1.server_(s);
+			freq1.active_(true);
+			freq1.scope.visible = true;
+			freq1.background_(Color.black);
+			freq1.waveColors_([Color.fromHexString("#d4af37")])}.defer(0.2);
+		};
+		if(buttonScope1.value == 0){
+			{freq1.active_(false);
+			freq1.scope.visible = false;
+			freq1.kill;
+			scope1.start}.defer(0.2);
+		};
+	});
+
+buttonScope2 = Button.new(window,Rect(margin2W+(box1W/9.5)+(1*(box1W+marginW)),marginSH,box1W/9.5,box1H/4)).states_([["t",Color.black,Color.fromHexString("#d4af37")],["Hz",Color.black,Color.fromHexString("#d4af37")]]).font_(Font("Monotype Corsiva", fontL));
+
+buttonScope2.action_({
+		if(buttonScope2.value == 1){
+			{scope2.stop;
+			freq2 = FreqScopeView.new(window, Rect(margin2W+(box1W/4.5)+(1*(box1W+marginW)),marginSH,box1W/2,scopeH), s);
+			freq2.freqMode_(1);
+			freq2.inBus_(busNum+2);
+			freq2.server_(s);
+			freq2.active_(true);
+			freq2.scope.visible = true;
+			freq2.background_(Color.black);
+			freq2.waveColors_([Color.fromHexString("#d4af37")])}.defer(0.2);
+		};
+		if(buttonScope2.value == 0){
+			{freq2.active_(false);
+			freq2.scope.visible = false;
+			freq2.kill;
+			scope2.start}.defer(0.2);
+		};
+	});
+
+buttonScope3 = Button.new(window,Rect(margin2W+(box1W/9.5)+(2*(box1W+marginW)),marginSH,box1W/9.5,box1H/4)).states_([["t",Color.black,Color.fromHexString("#d4af37")],["Hz",Color.black,Color.fromHexString("#d4af37")]]).font_(Font("Monotype Corsiva", fontL));
+
+buttonScope3.action_({
+		if(buttonScope3.value == 1){
+			{scope3.stop;
+			freq3 = FreqScopeView.new(window, Rect(margin2W+(box1W/4.5)+(2*(box1W+marginW)),marginSH,box1W/2,scopeH), s);
+			freq3.freqMode_(1);
+			freq3.inBus_(busNum+4);
+			freq3.server_(s);
+			freq3.active_(true);
+			freq3.scope.visible = true;
+			freq3.background_(Color.black);
+			freq3.waveColors_([Color.fromHexString("#d4af37")])}.defer(0.2);
+		};
+		if(buttonScope3.value == 0){
+			{freq3.active_(false);
+			freq3.scope.visible = false;
+			freq3.kill;
+			scope3.start}.defer(0.2);
+		};
+	});
+
+buttonScope4 = Button.new(window,Rect(margin2W+(box1W/9.5)+(3*(box1W+marginW)),marginSH,box1W/9.5,box1H/4)).states_([["t",Color.black,Color.fromHexString("#d4af37")],["Hz",Color.black,Color.fromHexString("#d4af37")]]).font_(Font("Monotype Corsiva", fontL));
+
+buttonScope4.action_({
+		if(buttonScope4.value == 1){
+			{scope4.stop;
+			freq4 = FreqScopeView.new(window, Rect(margin2W+(box1W/4.5)+(3*(box1W+marginW)),marginSH,box1W/2,scopeH), s);
+			freq4.freqMode_(1);
+			freq4.inBus_(busNum+6);
+			freq4.server_(s);
+			freq4.active_(true);
+			freq4.scope.visible = true;
+			freq4.background_(Color.black);
+			freq4.waveColors_([Color.fromHexString("#d4af37")])}.defer(0.2);
+		};
+		if(buttonScope4.value == 0){
+			{freq4.active_(false);
+			freq4.scope.visible = false;
+			freq4.kill;
+			scope4.start}.defer(0.2);
+		};
+	});
+
+
 SynthDef(\scoping, {
     arg bus, buff;
-    ScopeOut2.ar(In.ar(bus,2), buff, maxFrames: 8092, scopeFrames: 1024);     // BIG PROBLEM!!!!!!!!!!!!!!!!!!!!
+    ScopeOut2.ar(In.ar(bus,2), buff, maxFrames: 8092, scopeFrames: 1024);
     Out.ar([0,1], In.ar(bus, 2));
-    //Out.ar((bus+10), In.ar(bus, 1)+In.ar(bus+1, 1));
   }).add;
 
 {~scope1 = Synth(\scoping, [\buff, f1.bufnum, \bus, busNum])}.defer(0.1);
@@ -550,7 +640,7 @@ button_1_1_1.action_{ |b|
 		);
 	};
 	button_3_1_1.action_{ |b|
-		{~play3 = Synth(\rat3,[\mix,knob_1_1_2.value,\room,knob_1_1_3.value,\damp,knob_1_1_4.value,\amp,slider3_1.value/100,\rat,knob_3_2_4.value,\len,knob_3_2_2.value,\pos,knob_3_2_3.value])}.defer(0.1)}
+		{~play3 = Synth(\rat3,[\mix,knob_1_1_2.value,\room,knob_1_1_3.value,\damp,knob_1_1_4.value,\amp,slider3_1.value/100,\pan,slider3_2.value,\rat,knob_3_2_4.value,\len,knob_3_2_2.value,\pos,knob_3_2_3.value])}.defer(0.1)}
 	;
 	button_4_1_1.action_{ |b|
 		if(b.value == 1,
