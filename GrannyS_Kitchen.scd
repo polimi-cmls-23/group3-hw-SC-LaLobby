@@ -361,7 +361,7 @@ knob_1_1_4 = EZKnob(box1_1,box1W/4.5@box1H,"Damp",layout:\vert2,labelHeight:box1
 //knob_1_2_1 = EZKnob(box1_2,box2W/4.5@box2H,"Size",layout:\vert2,labelHeight:box1H/4);
 knob_1_2_2 = EZKnob(box1_2,box2W/3.5@box2H,"Ticks",layout:\vert2,labelHeight:box1H/4,initVal:0.5);
 knob_1_2_3 = EZKnob(box1_2,box2W/3.5@box2H,"Pos",layout:\vert2,labelHeight:box1H/4,initVal:0.5);
-knob_1_2_4 = EZKnob(box1_2,box2W/3.5@box2H,"Rate",layout:\vert2,labelHeight:box1H/4,initVal:0.5);
+knob_1_2_4 = EZKnob(box1_2,box2W/3.5@box2H,"Pitch",layout:\vert2,labelHeight:box1H/4,initVal:0.5);
 
 slider1_1 = EZSlider(box1_3,box3W*0.935@(box2H/4),"Volume",ControlSpec(0,100,step:1),labelHeight:box1H/4,numberWidth:box3W/8,initVal:100);
 box1_3.startRow;
@@ -396,7 +396,7 @@ knob_2_1_4 = EZKnob(box2_1,box1W/4.5@box1H,"Damp",layout:\vert2,labelHeight:box1
 //knob_2_2_1 = EZKnob(box2_2,box2W/4.5@box2H,"Size",layout:\vert2,labelHeight:box1H/4);
 knob_2_2_2 = EZKnob(box2_2,box2W/3.5@box2H,"Ticks",layout:\vert2,labelHeight:box1H/4,initVal:0.5);
 knob_2_2_3 = EZKnob(box2_2,box2W/3.5@box2H,"Pos",layout:\vert2,labelHeight:box1H/4,initVal:1);
-knob_2_2_4 = EZKnob(box2_2,box2W/3.5@box2H,"Rate",layout:\vert2,labelHeight:box1H/4,initVal:0.5);
+knob_2_2_4 = EZKnob(box2_2,box2W/3.5@box2H,"Pitch",layout:\vert2,labelHeight:box1H/4,initVal:0.5);
 
 slider2_1 = EZSlider(box2_3,box3W*0.935@(box2H/4),"Volume",ControlSpec(0,100,step:1),labelHeight:box1H/4,numberWidth:box3W/8,initVal:100);
 box2_3.startRow;
@@ -466,7 +466,7 @@ knob_4_1_4 = EZKnob(box4_1,box1W/4.5@box1H,"Damp",layout:\vert2,labelHeight:box1
 //knob_4_2_1 = EZKnob(box4_2,box2W/4.5@box2H,"Size",layout:\vert2,labelHeight:box1H/4);
 knob_4_2_2 = EZKnob(box4_2,box2W/3.5@box2H,"Dens",layout:\vert2,labelHeight:box1H/4,initVal:0.5);
 knob_4_2_3 = EZKnob(box4_2,box2W/3.5@box2H,"Pos",layout:\vert2,labelHeight:box1H/4,initVal:0.5);
-knob_4_2_4 = EZKnob(box4_2,box2W/3.5@box2H,"Rate",layout:\vert2,labelHeight:box1H/4,initVal:0.5);
+knob_4_2_4 = EZKnob(box4_2,box2W/3.5@box2H,"Pitch",layout:\vert2,labelHeight:box1H/4,initVal:0.5);
 
 slider4_1 = EZSlider(box4_3,box3W*0.935@(box2H/4),"Volume",ControlSpec(0,100,step:1),labelHeight:box1H/4,numberWidth:box3W/8,initVal:100);
 box4_3.startRow;
@@ -527,7 +527,7 @@ scope4.server_(s);
 scope4.start;
 scope4.yZoom=2;
 
-buttonScope1 = Button.new(window,Rect(margin2W+(box1W/9.5),marginSH,box1W/9.5,box1H/4)).states_([["t",Color.black,Color.fromHexString("#d4af37")],["Hz",Color.black,Color.fromHexString("#d4af37")]]).font_(Font("Monotype Corsiva", fontL));
+buttonScope1 = Button.new(window,Rect(margin2W+(box1W/9.5),marginSH,box1W/9.5,box1H/4)).states_([["t",Color.black,Color.fromHexString("#d4af37")],["f",Color.black,Color.fromHexString("#d4af37")]]).font_(Font("Monotype Corsiva", fontL));
 
 buttonScope1.action_({
 		if(buttonScope1.value == 1){
@@ -549,7 +549,7 @@ buttonScope1.action_({
 		};
 	});
 
-buttonScope2 = Button.new(window,Rect(margin2W+(box1W/9.5)+(1*(box1W+marginW)),marginSH,box1W/9.5,box1H/4)).states_([["t",Color.black,Color.fromHexString("#d4af37")],["Hz",Color.black,Color.fromHexString("#d4af37")]]).font_(Font("Monotype Corsiva", fontL));
+buttonScope2 = Button.new(window,Rect(margin2W+(box1W/9.5)+(1*(box1W+marginW)),marginSH,box1W/9.5,box1H/4)).states_([["t",Color.black,Color.fromHexString("#d4af37")],["f",Color.black,Color.fromHexString("#d4af37")]]).font_(Font("Monotype Corsiva", fontL));
 
 buttonScope2.action_({
 		if(buttonScope2.value == 1){
@@ -571,7 +571,7 @@ buttonScope2.action_({
 		};
 	});
 
-buttonScope3 = Button.new(window,Rect(margin2W+(box1W/9.5)+(2*(box1W+marginW)),marginSH,box1W/9.5,box1H/4)).states_([["t",Color.black,Color.fromHexString("#d4af37")],["Hz",Color.black,Color.fromHexString("#d4af37")]]).font_(Font("Monotype Corsiva", fontL));
+buttonScope3 = Button.new(window,Rect(margin2W+(box1W/9.5)+(2*(box1W+marginW)),marginSH,box1W/9.5,box1H/4)).states_([["t",Color.black,Color.fromHexString("#d4af37")],["f",Color.black,Color.fromHexString("#d4af37")]]).font_(Font("Monotype Corsiva", fontL));
 
 buttonScope3.action_({
 		if(buttonScope3.value == 1){
