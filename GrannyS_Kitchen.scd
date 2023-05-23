@@ -191,7 +191,7 @@ SynthDef.new("rat3", {
 	rev = FreeVerb.ar(sig, mix, room, damp);
 	panner = Pan2.ar(rev*amp,pan);
 
-	env =  EnvGen.ar(Env([1, 0], [6+length], curve: [-5]), 1, 1, 0, 1, 1);
+	env =  EnvGen.ar(Env([1, 0], [6+length], curve: [-5]), 1, 1, 0, 1, 2);
 
 		Out.ar(busNum+(2*2), panner);
 
@@ -593,7 +593,7 @@ buttonScope3.action_({
 		};
 	});
 
-buttonScope4 = Button.new(window,Rect(margin2W+(box1W/9.5)+(3*(box1W+marginW)),marginSH,box1W/9.5,box1H/4)).states_([["t",Color.black,Color.fromHexString("#d4af37")],["Hz",Color.black,Color.fromHexString("#d4af37")]]).font_(Font("Monotype Corsiva", fontL));
+buttonScope4 = Button.new(window,Rect(margin2W+(box1W/9.5)+(3*(box1W+marginW)),marginSH,box1W/9.5,box1H/4)).states_([["t",Color.black,Color.fromHexString("#d4af37")],["f",Color.black,Color.fromHexString("#d4af37")]]).font_(Font("Monotype Corsiva", fontL));
 
 buttonScope4.action_({
 		if(buttonScope4.value == 1){
@@ -618,8 +618,9 @@ buttonScope4.action_({
 
 SynthDef(\scoping, {
     arg bus, buff;
-    ScopeOut2.ar(In.ar(bus,2), buff, maxFrames: 8092, scopeFrames: 1024);
+    ScopeOut2.ar(inputArray: In.ar(bus,2), scopeNum: buff, maxFrames: 8092, scopeFrames: 1024);
     Out.ar([0,1], In.ar(bus, 2));
+	Out.ar((bus+10), In.ar(bus, 1)+In.ar(bus+1, 1));
   }).add;
 
 {~scope1 = Synth(\scoping, [\buff, f1.bufnum, \bus, busNum])}.defer(0.1);
@@ -748,5 +749,4 @@ button_1_1_1.action_{ |b|
 	knob_4_2_4.action_{ |k|
 		~play4.set(\rat,k.value)};
 });
-
 )
