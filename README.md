@@ -2,7 +2,8 @@
 ## CMLS - HW#1, Group 3: La Lobby
 
 <p>
-  The goal of the assignment was the creation of foley sounds by means of granular synthesis in the SuperCollider environment. The synthesis was implemented inside     an application provided with a GUI, in order to allow the user to partially customize the sounds via the synthesis parameters.
+  The goal of the assignment was the creation of foley sounds by means of granular synthesis in the SuperCollider environment. The synthesis was implemented along
+  with an application provided with a GUI, in order to allow the user to partially customize the sounds via the synthesis parameters.
 </p>
 <p>
   The synthesis process started with the selection of the environment to which the
