@@ -9,6 +9,10 @@
   synthesized sounds would belong. The choice fell on an ordinary life soundscape: the
   one of a kitchen.
 </p>
+<p>
+  Even though granular synthesis is, to an extent, affected by the micro-sampled track, the choice of said track was solely based on the audio context and fell on     "Le Festin" by Camille and Michael Giacchino, a song from the soundtrack of the hugely popular animated movie "Ratatouille" (2007), which is set in a kitchen for
+  the most part.
+</p>
 <p align="center">
   <img src="/Images/gui.jpg" width=100% margin-top="15%">
 </p>
